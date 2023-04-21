@@ -4,21 +4,31 @@ import getApi from '../services/getApi';
 class ImageGallery extends Component{
 state={
   myData: [],
+  isLoading:false,
 }
 componentDidUpdate(prevProps, prevState){
     console.log("this.props: >>", this.props)
 if (prevProps.searchText!==this.props.searchText){
-    // fetch()
+   this.setState({isLoading:true})
     getApi(this.props.searchText)
     .then((response)=> response.json())
-.then(data=> this.setState(() => ({
-  myData: [...prevState.myData, ...data.hits],
-})))
+.then((myData)=> this.setState({myData: myData.hits}))
+// .then(data=> this.setState(() => ({
+//   myData: [...prevState.myData, ...data.hits],
+// })))
+.finally(()=>{
+  this.setState({isLoading:false})
+})
 }
 }
 render(){
-  const { myData, loading } = this.state;
+  const { myData, isLoading } = this.state;
     return(<div>
+      {
+        isLoading&&<div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      }
       <ul className="gallery">
         {myData.map((hit, index) => (
           <li key={hit.id} className="gallery-item">
@@ -31,6 +41,7 @@ render(){
           </li>
         ))}
       </ul>
+      <button>Load more</button>
       
     </div>)
 }
