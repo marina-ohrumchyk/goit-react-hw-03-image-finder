@@ -9,7 +9,7 @@ const ImageGalleryItem = ({
   clickImage,
   closeLightbox,
 }) => (
-  <div>
+  <div className={css.ImageGallery}>
     {myData.map((hit, index) => (
       <li key={hit.id} className={css.ImageGalleryItem}>
         <img

@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+import css from "components/Searchbar/Searchbar.module.css"
+import 'react-toastify/dist/ReactToastify.css';
+import { IoIosSearch } from 'react-icons/io';
 
 class Searchbar extends Component {
   state = {
@@ -8,20 +12,27 @@ class Searchbar extends Component {
     this.setState({ value });
   };
   handleSubmit = e => {
-    e.preventDefault();
-    this.props.handleSearch(this.state.value);
+    e.preventDefault()
+    // this.props.handleSearch(this.state.value);
+    if (this.state.value.trim() === '') {
+      toast.error('bad!');
+      return
+      
+    }
+    this.props.handleSearch(this.state.value)
+    this.setState({value: ''})
   };
 
   render() {
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
+      <header className={css.Searchbar}>
+        <form className={css.SearchForm} onSubmit={this.handleSubmit}>
           <button type="submit" className="button">
-            <span className="button-label">Search</span>
+          <IoIosSearch />
           </button>
 
           <input
-            className="input"
+            className={css.SearchFormInput}
             type="text"
             autoComplete="off"
             autoFocus
