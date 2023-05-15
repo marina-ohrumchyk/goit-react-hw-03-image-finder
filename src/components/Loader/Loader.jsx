@@ -1,10 +1,11 @@
-import React from 'react';
 import { TailSpin } from 'react-loader-spinner';
-import css from 'components/Loader/Loader.module.css';
+import { Component } from 'react';
+import { Container } from 'components/App.styled';
 
-const IsLoading = () => (
-  <div className={css.spiner}>
-  <TailSpin
+export class Loader extends Component {
+  render() {
+    return <Container>
+   <TailSpin
     height="80"
     width="80"
     color="#4fa94d"
@@ -14,7 +15,7 @@ const IsLoading = () => (
     wrapperClass=""
     visible={true}
   />
-  </div>
-);
+    </Container>
+  }
+}
 
-export default IsLoading;
